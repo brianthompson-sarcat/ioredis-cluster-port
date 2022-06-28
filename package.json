@@ -1,0 +1,25 @@
+{
+  "name": "ioredis-cluster-port",
+  "version": "1.0.0",
+  "description": "Expects a configred ioredis cluster object",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brianthompson-sarcat/ioredis-cluster-port.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brianthompson-sarcat/ioredis-cluster-port/issues"
+  },
+  "homepage": "https://github.com/brianthompson-sarcat/ioredis-cluster-port#readme",
+  "dependencies": {
+    "node-crc": "^2.0.13"
+  }
+}
