@@ -2,7 +2,7 @@
 
 Expects a configred ioredis cluster object
 
-import {io_cc} from './ioredisClusterObject.mjs' // fully configure ioredis cluster object (see example)
+`import {io_cc} from './ioredisClusterObject.mjs' // fully configure ioredis cluster object (see example)
 import {ioredisClusterPort} from 'ioredis-cluster-port'
 
 var io_CP = new ioredisClusterPort(io_cc)
@@ -75,5 +75,4 @@ console.log(await io_cp.mapping({ip: true}))
   '127.0.0.1:7023': { low: 14418, high: 15072 },
   '127.0.0.1:7024': { low: 15073, high: 15728 },
   '127.0.0.1:7025': { low: 15729, high: 16383 }
-}
-^C
+}`
