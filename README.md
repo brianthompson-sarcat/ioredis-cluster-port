@@ -7,8 +7,11 @@ import {ioredisClusterPort} from 'ioredis-cluster-port'
 
 var io_CP = new ioredisClusterPort(io_cc)
 
-console.log(await io_CP.getPort('{path}:path'))
+console.log(await io_CP.getPort({key:'{path}:path'}))
 //prints 7001 Number()
+
+console.log(await io_CP.getPort({key:'{path}:path', ip: true}))
+//prints 127.0.1:7001 Number()
 
 console.log(await io_CP.getPort('keyString')) // works with stick key hashes too (e.g., "{path}:keyname")
 

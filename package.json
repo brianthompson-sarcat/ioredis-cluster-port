@@ -1,6 +1,6 @@
 {
   "name": "ioredis-cluster-port",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Expects a configred ioredis cluster object",
   "main": "src/index.mjs",
   "directories": {

@@ -1,6 +1,7 @@
 import {crc16xmodem} from 'node-crc'
 
-async function getSlotDict({client, ip}){
+async function getSlotDict(obj){
+    var {client, ip} = obj
     const slots = await client.cluster("SLOTS")
     const slotDict = {}
     var i = 0
@@ -8,9 +9,9 @@ async function getSlotDict({client, ip}){
         var slt_low = slots[i][0]
         var slt_high = slots[i][1]
         var port = slots[i][2][1]
-        if(ip === true){
-            var ip = slots[i][2][0]
-            slotDict[`${ip}:${port}`] = {low: slt_low, high: slt_high}
+        if(ip == true){
+            var ip_add = slots[i][2][0]
+            slotDict[`${ip_add}:${port}`] = {low: slt_low, high: slt_high}
         } else {
             slotDict[port] = {low: slt_low, high: slt_high}
         }
@@ -20,12 +21,18 @@ async function getSlotDict({client, ip}){
 }
 
 async function keyHash2Port(keyHashNumber, obj){
+    var {ip} = obj
     var finalPort
     var slotDict = await getSlotDict(obj)
     for(var ip_port in slotDict){
         if(slotDict[ip_port].low <= keyHashNumber){
             if(slotDict[ip_port].high >= keyHashNumber){
-                finalPort = Number(ip_port)
+                if(ip){
+                    finalPort = ip_port
+                } else {
+                    finalPort = Number(ip_port)
+                }
+               
             }
         }
     }
@@ -53,13 +60,9 @@ export class ioredisClusterPort {
         this.mapDict
     }
     mapping = async (obj) =>{
-        if(this.mapDict && Object.keys(this.mapDict).length > 0){
-            return this.mapDict
-        } else {
-            obj.client = this.clusterClient
-            this.mapDict = await getSlotDict(obj)
-            return this.mapDict
-        }
+        obj.client = this.clusterClient
+        this.mapDict = await getSlotDict(obj)
+        return this.mapDict
     }
     getPort = async (obj) =>{
         obj.client = this.clusterClient
