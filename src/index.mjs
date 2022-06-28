@@ -19,20 +19,21 @@ async function getSlotDict({client, ip}){
     return slotDict
 }
 
-async function keyHash2Port(keyHashNumber, client, ip){
+async function keyHash2Port(keyHashNumber, obj){
     var finalPort
-    var slotDict = await getSlotDict(client,ip)
-    for(var ip_port in await slotDict(ip)){
+    var slotDict = await getSlotDict(obj)
+    for(var ip_port in slotDict){
         if(slotDict[ip_port].low <= keyHashNumber){
             if(slotDict[ip_port].high >= keyHashNumber){
-                finalPort = ip_port
+                finalPort = Number(ip_port)
             }
         }
     }
     return finalPort
 }
 
-async function redisIP_Port({client, key, ip}){
+async function redisIP_Port(obj){
+    var {client, key, ip} = obj
     if(key){
         if(key.indexOf('{') > -1){
             var start=key.indexOf('{')+1
@@ -40,7 +41,7 @@ async function redisIP_Port({client, key, ip}){
             key = key.slice(start, stop)
         }
         var buf = Buffer.from(key)
-        return await keyHash2Port(parseInt(crc16xmodem(buf).toString('hex'), 16) % 16384,client, ip)
+        return await keyHash2Port(parseInt(crc16xmodem(buf).toString('hex'), 16) % 16384,obj)
     } else {
         return keyHash2Port()
     }
@@ -56,7 +57,7 @@ export class ioredisClusterPort {
             return this.mapDict
         } else {
             obj.client = this.clusterClient
-            this.mapDict = await slotDict(obj)
+            this.mapDict = await getSlotDict(obj)
             return this.mapDict
         }
     }
