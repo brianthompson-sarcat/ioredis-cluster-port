@@ -1,13 +1,10 @@
 {
   "name": "ioredis-cluster-port",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Expects a configred ioredis cluster object",
-  "main": "index.js",
+  "main": "src/index.mjs",
   "directories": {
     "example": "example"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -21,5 +18,16 @@
   "homepage": "https://github.com/brianthompson-sarcat/ioredis-cluster-port#readme",
   "dependencies": {
     "node-crc": "^2.0.13"
-  }
+  },
+  "keywords": [
+    "ioredis",
+    "redis",
+    "cluster",
+    "hash",
+    "port",
+    "shard",
+    "crc16",
+    "crc",
+    "rediscluster"
+  ]
 }
